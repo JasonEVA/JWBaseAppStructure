@@ -9,7 +9,7 @@
 #import "ATBaseViewController.h"
 #import "UIViewController+Loading.h"
 
-@interface ATBaseViewController ()
+@interface ATBaseViewController ()<UIGestureRecognizerDelegate>
 
 @end
 
@@ -26,6 +26,12 @@
     
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     [self.navigationItem setBackBarButtonItem:backItem];
+    //滑动返回
+    __weak typeof(self) weakSelf = self;
+    if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        [self.navigationController interactivePopGestureRecognizer].delegate = weakSelf;
+    }
+
 
 }
 
